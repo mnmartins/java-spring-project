@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body><h1>Notas sobre Spring Framework</h1>
+    <p><h3>Criando um projeto Spring Boot na IDE(VSCode):</h3>
+        <ol>
+            <li>Abrir a paleta de comandos (ctrl+shift+p => windows/linux ou cmd+shift+p => mac) e 
+                escrever spring para abrir o "Spring Initializr: Generate a Maven Project";</li>
+            <li>Selecionar a linguagem Java;</li>
+            <li>Colocar no Group Id algo como br.com.java-spring-vscode-example;</li>
+            <li>Colocar no Artifact Id algo como java-spring-vscode-example;</li>
+            <li>Selecionar o packaging type(JAR ou WAR);</li>
+            <li>Selecionar a versão do Spring Boot(mais atual e estável);</li>
+            <li>Não selecionar nenhuma dependência, somente apertar Enter;</li>
+            <li>Selecionar a pasta para abrigar o projeto, normalmente numa pasta "projetos" na raiz do diretório do usuário.</li></br>
+            * Caso necessário, faça uma alteração no arquivo pom.xml: mude o artifactId do org.springframework.boot de: spring-boot-starter 
+            para: spring-boot-starter-web (artefato que contém o necessário para trabalhar com REST APIs ou MVC). 
+        </ol>
+    </p>
+    <p><ul>
+        <li><h3>Sobre Dependency Injection</h3> - É utilizada para que ococrra a Inversion of 
+        Control (IoC) e define quais classes serão instanciadas e em quais lugares serão 
+        injetadas quando houver necessidade. Basta que seja criado um ponto de injeção da 
+        classe necessária - no construtor da classe, por exemplo - e o Spring Framework 
+        irá criar uma instância.</li>
+        <li><h3>Sobre o Core Container</h3> - Quando a aplicação é executada todas as configs
+        pré-definidas em classes ou arquivos xml são lidas e criadas através da IoC e 
+        destruídas quando não forem mais utilizadas. Essas dependências são chamades de beans. 
+        Esses passos definem o ciclo de vida de um Container. Para que o Spring saiba quais 
+        classes ele irá gerenciar é necessário determinar e configurar (criar pontos de injeção e definir 
+        onde injetar as instâncias) esses beans, isso pode ser feito em arquivos xml ou por 
+        meio de anotações.
+        <p><pre>
+            Exemplo de configuração em xml (não muito utilizada hoje em dia): 
+            < beans>
+                < bean class="com.example.springboot.Produto"/>
+                < bean class="com.example.springboot.ProdutoController"/>
+                < bean class="com.example.springboot.ProdutoService"/>
+                < bean class="com.example.springboot.ProdutoRepository"/>
+            < beans>
+ 
+            Exemplo de configuração por anotação (há 4 principais tipos):
+                @Component - para a classe de objeto ou entidade;
+                @Service - para classe de regras de negócio;
+                @Controller - para métodos GET, POST, DELETE e UPDATE;
+                @Repository - métodos de transação com o BD.
+        </pre></p>
+        <p>Os dois pontos de injeção mais comuns são os construtores e os setters. Ex:
+            <pre>
+                @Service
+                public class ProdutoService {
+                    private ProdutoRepository produtoRepository;
+
+                    public ProdutoService (ProdutoRepository produtoRepository){
+                        super();
+                        this.produtoRepository = produtoRepository;
+                    }
+                    //regras de negócio
+                }
+
+                ou 
+
+                @Service
+                public class ProdutoService {
+                    private ProdutoRepository produtoRepository;
+
+                    public void setProdutoRepository (ProdutoRepository produtoRepository){
+                        this.produtoRepository = produtoRepository;
+                    }
+                }
+            </pre>
+        </p>
+        <p>O ciclo de vida de um bean depende de seu escopo, definido com a anotação @Scope. 
+            Os tipos de escopos do Spring utilizados para web são:</br>
+        <pre>
+        * Tipo Singleton - uma única instancia para todas as solicitações da instancia;
+        * Tipo Prototype - várias instancias, uma para cada solicitação;
+        * Tipo Request - uma instancia criada para cada solicitação HTTP;
+        * Tipo Session - terá sua instancia preservada e utilizada pelas solicitações enquanto durar a sessão.
+        </pre>
+        </p>
+        </li>
+        <li><h3>Sobre Spring Boot</h3> - O Spring Boot é uma extensão do Spring que utiliza a 
+            base do Spring Framework para iniciar uma aplicação de forma mais simplificada e ágil 
+            e deixá-la pronta para implementação de regras de negócio. Também já traz um servidor 
+        embutido (Tomcat ou Netty). Retira a necessidade de configuração do XML <bean> Configuration 
+            ou classe @Configuration.</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul></p>
+    <footer>
+        Lido até a página 15 (12) - Spring Boot Da API REST aos Microservices</br>
+        Disponível em <a href="https://media.wix.com/ugd/217e7b_80bfd4eb01344178b83108980c52f889.pdf">Ebook</a></br>
+        Do projeto falta fazer a execução de teste e concluir a leitura do Medium. </br>Disponível em 
+        <a href="https://medium.com/danielpadua/java-spring-boot-vscode-9ef9b8a263cd">Medium</a>
+    </footer>
+</body>
+</html>
